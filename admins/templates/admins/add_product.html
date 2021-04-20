@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% load bootstrap %}
+{% block content %}
+
+    <div class="container">
+        <form action="" method="POST" class="form-control" enctype="multipart/form-data">
+             {% csrf_token %}
+            <div class="container">
+
+                {{ ProductForm | bootstrap_horizontal }}
+                <div>
+                    <button type="submit" class="btn btn-primary"> Submit </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+    <meta charset="UTF-8">
+    <link rel="icon" href="{% static 'images/ap.jpg' %}" type="image/jpg">
+    {% block title %}
+        {{ section.tittle }}
+    {% endblock %}
+</head>
+<body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">Admins Dashboard</div>
+        <div class="list-group list-group-flush">
+            <a href="{% url 'show_user' %}" class="list-group-item list-group-item-action bg-light">Users</a>
+            <a href="{% url 'show_cart' %}" class="list-group-item list-group-item-action bg-light">Carts</a>
+            <a href="{% url 'show_customer' %}" class="list-group-item list-group-item-action bg-light">Customers</a>
+            <a href="{% url 'show_order' %}" class="list-group-item list-group-item-action bg-light">Order Placed</a>
+            <a href="{% url 'show_product' %}" class="list-group-item list-group-item-action bg-light">Products</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+        </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{request.user.username|capfirst}}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                            <a class="dropdown-item" href="{% url 'show_cart' %}">Show Carts</a>
+                            <a class="dropdown-item" href="{% url 'show_order' %}">Show Orders</a>
+                            <a class="dropdown-item" href="{% url 'show_user' %}">Show Users</a>
+                            <a class="dropdown-item" href="{% url 'show_product' %}">Show Products</a>
+                            <a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password </a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
+</body>
+</html>

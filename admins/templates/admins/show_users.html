@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    <title>Show users</title>
+{% endblock title %}
+
+{% block content %}
+    <div>
+        <a type="submit" href="/admin/add_user" class="btn btn-primary float-right mr-3"> Add User </a>
+    </div>
+
+    <table class="table table-responsive table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">USERNAME</th>
+            <th scope="col">EMAIL ADDRESS</th>
+            <th scope="col">STAFF STATUS</th>
+            <th scope="col">ACTIONS</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for user in users %}
+            <tr>
+                <th scope="row">{{ user.id }}</th>
+                <th scope="row">{{ user.username }}</th>
+                <td>{{ user.email }}</td>
+                <td>{{ user.status }}</td>
+                <td>
+                    <form action="/admin/delete_user/{{ user.id }}/" method="post" class="d-inline">{% csrf_token %}
+                        <input type="submit" onclick="alert('are you sure to delete?')" class="btn btn-danger"
+                               value="Delete">
+                    </form>
+                    <a href="#" class="btn btn-primary">View</a>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">USERNAME</th>
+            <th scope="col">EMAIL ADDRESS</th>
+            <th scope="col">STAFF STATUS</th>
+            <th scope="col">ACTIONS</th>
+        </tr>
+
+        </tbody>
+    </table>
+
+{% endblock content %}

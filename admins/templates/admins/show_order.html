@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    <title>Show_Orders</title>
+{% endblock title %}
+
+{% block content %}
+    <div>
+        <a type="submit" href="/admin/add_order" class="btn btn-primary float-right mr-3"> Add Order </a>
+    </div>
+
+    <table class="table table-responsive table-striped">
+        <thead>
+        <tr>
+            <th scope="col">USER</th>
+            <th scope="col">CUSTOMER ID</th>
+            <th scope="col">PRODUCT ID</th>
+            <th scope="col">QUANTITY</th>
+            <th scope="col">ORDERED DATE</th>
+            <th scope="col">STATUS</th>
+            <th scope="col">ACTIONS</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for orderplaced in orderplaced %}
+            <tr>
+                <th scope="row">{{ orderplaced.user }}</th>
+                <td>{{ orderplaced.customer }}</td>
+                <td>{{ orderplaced.product }}</td>
+                <td>{{ orderplaced.quantity }}</td>
+                <td>{{ orderplaced.ordered_date }}</td>
+                <td>{{ orderplaced.status }}</td>
+                <td>
+                    <form action="{% url 'adminChangeStatus' orderplaced.id %}" method="POST">
+                        {% csrf_token %}
+                        {{ order_status_form.status }}
+                        <button type="submit" class="btn btn-primary d-flex justify-content-center mt-1">Save</button>
+                    </form>
+                </td>
+            </tr>
+
+        {% endfor %}
+        <tr>
+            <th scope="col">USER</th>
+            <th scope="col">CUSTOMER ID</th>
+            <th scope="col">PRODUCT ID</th>
+            <th scope="col">QUANTITY</th>
+            <th scope="col">ORDERED DATE</th>
+            <th scope="col">STATUS</th>
+            <th scope="col">ACTIONS</th>
+        </tr>
+
+        </tbody>
+    </table>
+
+{% endblock content %}

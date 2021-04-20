@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    <title>Show_Product</title>
+{% endblock title %}
+
+{% block content %}
+    <div>
+   <a type="submit" href="/admin/add_product" class="btn btn-primary float-right mr-3" > Add Product </a>
+    </div>
+    <table class="table table-responsive table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Product ID</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Selling price</th>
+            <th scope="col">Discounted Price</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Category</th>
+            <th scope="col">Action</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+
+            <tr>
+                <th scope="row">{{ product.id }}</th>
+                <td>{{ product.title }}</td>
+                <td>{{ product.selling_price }}</td>
+                <td>{{ product.discounted_price }}</td>
+                <td>{{ product.brand }}</td>
+                {% if product.category == "O" %}
+                    <td>Organic</td>
+                    {% elif product.category == "M" %}
+                    <td>Mobile</td>
+                    {% elif product.category == "TW" %}
+                    <td>Vegetables</td>
+                    {% elif product.category == "L" %}
+                    <td>Fruit</td>
+                    {% elif product.category == "bw" %}
+                    <td>Clothes</td>
+                {% endif %}
+                <td>
+
+                    <a href="#" class="btn btn-primary">View</a>
+                    <form action="{% url 'delete_product' product.id %}" method="post" class="d-inline">{% csrf_token %}
+                        <input type="submit" class="btn btn-danger" value="Delete">
+
+                    </form>
+                </td>
+            </tr>
+
+        {% endfor %}
+        <tr>
+            <th scope="col">Product ID</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Selling price</th>
+            <th scope="col">Discounted Price</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Category</th>
+            <th scope="col">Action</th>
+        </tr>
+
+        </tbody>
+    </table>
+
+{% endblock content %}
